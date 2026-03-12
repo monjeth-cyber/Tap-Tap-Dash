@@ -1,5 +1,5 @@
 import levels from '../data/levels';
-import { MAX_LEVELS, DIFFICULTIES } from '../utils/constants';
+import { MAX_LEVELS, DIFFICULTIES, GLOBAL_SPEED_MULTIPLIER } from '../utils/constants';
 import { clamp } from '../utils/helpers';
 
 /**
@@ -23,7 +23,8 @@ export function getLevelConfigWithDifficulty(levelId, difficulty = 'normal') {
   const preset = DIFFICULTIES[difficulty] || DIFFICULTIES.normal;
   return {
     ...base,
-    speed: base.speed * preset.speedMultiplier,
+    // Apply global speed multiplier uniformly to all levels and modes
+    speed: base.speed * GLOBAL_SPEED_MULTIPLIER,
     turnWindowStart: clamp(base.turnWindowStart + preset.turnWindowShrink / 2, 0.1, 0.5),
     turnWindowEnd: clamp(base.turnWindowEnd - preset.turnWindowShrink / 2, 0.5, 0.95),
     obstacleDensity: clamp(base.obstacleDensity + preset.obstacleDensityAdd, 0, 0.6),
