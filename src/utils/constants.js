@@ -47,16 +47,16 @@ export const VISIBLE_TILE_RANGE = 12;
 // Difficulty presets
 export const DIFFICULTIES = {
   normal: {
-    label: 'Normal',
-    speedMultiplier: 1.0,
-    turnWindowShrink: 0,        // no change
-    obstacleDensityAdd: 0,      // no change
+    label: 'Easy',
+    speedMultiplier: 0.99,
+    turnWindowShrink: 0,
+    obstacleDensityAdd: 0,
     scoreMultiplier: 1.0,
     color: '#4CAF50',
   },
   medium: {
     label: 'Medium',
-    speedMultiplier: 1.0,       // normalized: same speed as normal
+    speedMultiplier: 0.99,
     turnWindowShrink: 0.06,     // window shrinks by 6%
     obstacleDensityAdd: 0.05,   // +5% more obstacles
     scoreMultiplier: 1.5,
@@ -64,7 +64,7 @@ export const DIFFICULTIES = {
   },
   hard: {
     label: 'Hard',
-    speedMultiplier: 1.0,       // normalized: same speed as normal
+    speedMultiplier: 0.99,
     turnWindowShrink: 0.12,     // window shrinks by 12%
     obstacleDensityAdd: 0.1,    // +10% more obstacles
     scoreMultiplier: 2.0,
