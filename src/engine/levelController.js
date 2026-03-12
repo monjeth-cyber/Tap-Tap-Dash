@@ -23,7 +23,7 @@ export function getLevelConfigWithDifficulty(levelId, difficulty = 'normal') {
   const preset = DIFFICULTIES[difficulty] || DIFFICULTIES.normal;
   return {
     ...base,
-    // Apply global speed multiplier uniformly to all levels and modes
+    // Apply global speed multiplier uniformly to all levels/modes
     speed: base.speed * GLOBAL_SPEED_MULTIPLIER,
     turnWindowStart: clamp(base.turnWindowStart + preset.turnWindowShrink / 2, 0.1, 0.5),
     turnWindowEnd: clamp(base.turnWindowEnd - preset.turnWindowShrink / 2, 0.5, 0.95),

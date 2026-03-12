@@ -17,10 +17,6 @@ export const SCORE_LEVEL_COMPLETE_BONUS = 500;
 // Tick rate (kept for reference; game loop now uses requestAnimationFrame)
 export const TICK_RATE = 16; // ~60fps
 
-// Global gameplay speed multiplier applied to all levels and modes.
-// Set to 0.99 for slightly reduced, more controllable pacing across the game.
-export const GLOBAL_SPEED_MULTIPLIER = 0.99;
-
 // Directions
 export const DIRECTIONS = {
   up: { dx: 0, dy: -1 },
@@ -48,11 +44,14 @@ export const MAX_LEVELS = 20;
 // Visible tile range (tiles rendered around the player)
 export const VISIBLE_TILE_RANGE = 12;
 
+// Global speed multiplier applied uniformly to all levels and modes
+export const GLOBAL_SPEED_MULTIPLIER = 0.99;
+
 // Difficulty presets
 export const DIFFICULTIES = {
   normal: {
     label: 'Normal',
-    speedMultiplier: 1.0,
+    speedMultiplier: GLOBAL_SPEED_MULTIPLIER,
     turnWindowShrink: 0,        // no change
     obstacleDensityAdd: 0,      // no change
     scoreMultiplier: 1.0,
@@ -60,7 +59,7 @@ export const DIFFICULTIES = {
   },
   medium: {
     label: 'Medium',
-    speedMultiplier: 1.25,
+    speedMultiplier: GLOBAL_SPEED_MULTIPLIER,
     turnWindowShrink: 0.06,     // window shrinks by 6%
     obstacleDensityAdd: 0.05,   // +5% more obstacles
     scoreMultiplier: 1.5,
@@ -68,7 +67,7 @@ export const DIFFICULTIES = {
   },
   hard: {
     label: 'Hard',
-    speedMultiplier: 1.3,
+    speedMultiplier: GLOBAL_SPEED_MULTIPLIER,
     turnWindowShrink: 0.12,     // window shrinks by 12%
     obstacleDensityAdd: 0.1,    // +10% more obstacles
     scoreMultiplier: 2.0,
