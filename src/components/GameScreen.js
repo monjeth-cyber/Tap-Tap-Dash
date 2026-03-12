@@ -6,7 +6,7 @@ import useGameEngine from '../hooks/useGameEngine';
 import PathView from './PathView';
 import HUD from './HUD';
 import { lightHaptic, heavyHaptic, successHaptic } from '../services/hapticsService';
-import { playFail, playComplete } from '../services/audioService';
+import { playComplete } from '../services/audioService';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -21,7 +21,7 @@ export default function GameScreen({ levelId, onGameOver, onLevelComplete, diffi
   const callbacks = {
     onGameOver: (score) => {
       heavyHaptic();
-      playFail();
+      // playFail() is already called inside the game engine tick on collision
       onGameOver(score);
     },
     onLevelComplete: (score) => {
@@ -95,7 +95,7 @@ export default function GameScreen({ levelId, onGameOver, onLevelComplete, diffi
     }
 
     // --- DOUBLE-TAP on non-turn tile: jump ---
-    if (delta > 0 && delta <= 300) {
+    if (delta > 0 && delta <= 250) {
       if (tapTimerRef.current) {
         clearTimeout(tapTimerRef.current);
         tapTimerRef.current = null;
@@ -120,6 +120,15 @@ export default function GameScreen({ levelId, onGameOver, onLevelComplete, diffi
       if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
     };
   }, []);
+
+  // Cancel any pending jump timer the instant a turn window opens
+  useEffect(() => {
+    if (gameState.turnWindowActive && tapTimerRef.current) {
+      clearTimeout(tapTimerRef.current);
+      tapTimerRef.current = null;
+      lastTapRef.current = 0;
+    }
+  }, [gameState.turnWindowActive]);
 
   return (
     <Pressable style={[styles.container, { backgroundColor: theme.background }]} onPressIn={onTap}>

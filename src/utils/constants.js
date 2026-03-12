@@ -64,7 +64,7 @@ export const DIFFICULTIES = {
   },
   hard: {
     label: 'Hard',
-    speedMultiplier: 1.5,
+    speedMultiplier: 1.3,
     turnWindowShrink: 0.12,     // window shrinks by 12%
     obstacleDensityAdd: 0.1,    // +10% more obstacles
     scoreMultiplier: 2.0,

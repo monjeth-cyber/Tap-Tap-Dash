@@ -134,8 +134,39 @@ export default function useGameEngine(levelId, callbacks, difficulty = 'normal')
       let newDirection = player.direction;
       let newTurnWindowActive = false;
 
-      // Score for passing tiles
+      // Score for passing tiles; also catch obstacles/turns skipped entirely in a single frame
       while (newProgress >= 1 && newTileIndex < tiles.length - 1) {
+        // Check the tile we are about to leave for events that must not be skipped
+        const leavingTile = tiles[newTileIndex];
+        if (leavingTile) {
+          // Completely crossed a turn tile without tapping → immediate game over
+          if (leavingTile.isTurn && !turnHandledRef.current) {
+            playFail();
+            return {
+              ...prev,
+              status: 'gameOver',
+              score: newScore,
+              player: { ...player, tileIndex: newTileIndex, progress: 1.0, isAlive: false, direction: newDirection },
+              turnWindowActive: false,
+              isJumping: false,
+              jumpTimeRemaining: 0,
+            };
+          }
+          // Completely crossed an obstacle tile without jumping → immediate game over
+          if (!newIsJumping && leavingTile.hasObstacle) {
+            playFail();
+            return {
+              ...prev,
+              status: 'gameOver',
+              score: newScore,
+              player: { ...player, tileIndex: newTileIndex, progress: 0.55, isAlive: false, direction: newDirection },
+              turnWindowActive: false,
+              isJumping: false,
+              jumpTimeRemaining: 0,
+            };
+          }
+        }
+
         newProgress -= 1;
         newTileIndex += 1;
 
