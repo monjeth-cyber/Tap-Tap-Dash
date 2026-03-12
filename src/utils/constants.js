@@ -56,7 +56,7 @@ export const DIFFICULTIES = {
   },
   medium: {
     label: 'Medium',
-    speedMultiplier: 1.25,
+    speedMultiplier: 1.0,
     turnWindowShrink: 0.06,     // window shrinks by 6%
     obstacleDensityAdd: 0.05,   // +5% more obstacles
     scoreMultiplier: 1.5,
@@ -64,7 +64,7 @@ export const DIFFICULTIES = {
   },
   hard: {
     label: 'Hard',
-    speedMultiplier: 1.3,
+    speedMultiplier: 1.0,
     turnWindowShrink: 0.12,     // window shrinks by 12%
     obstacleDensityAdd: 0.1,    // +10% more obstacles
     scoreMultiplier: 2.0,
